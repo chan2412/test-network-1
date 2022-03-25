@@ -1,0 +1,35 @@
+---
+name: test-network-Laboratory
+version: 1.0.0
+client:
+  organization: Laboratory
+  connection:
+    timeout:
+      peer:
+        endorser: '300'
+organizations:
+  Laboratory:
+    mspid: LaboratoryMSP
+    peers:
+    - peer0.laboratory.example.com
+    certificateAuthorities:
+    - ca.laboratory.example.com
+peers:
+  peer0.laboratory.example.com:
+    url: grpcs://localhost:${P0PORT}
+    tlsCACerts:
+      pem: |
+          ${PEERPEM}
+    grpcOptions:
+      ssl-target-name-override: peer0.laboratory.example.com
+      hostnameOverride: peer0.laboratory.example.com
+certificateAuthorities:
+  ca.laboratory.example.com:
+    url: https://localhost:${CAPORT}
+    caName: ca-laboratory
+    tlsCACerts:
+      pem: 
+        - |
+          ${CAPEM}
+    httpOptions:
+      verify: false
